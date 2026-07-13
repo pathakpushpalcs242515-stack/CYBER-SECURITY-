@@ -1,0 +1,66 @@
+GUI VERSION B
+
+import math
+
+def encrypt(message, key):
+    rows = math.ceil(len(message) / key)
+    matrix = [['X' for _ in range(key)] for _ in range(rows)]
+
+    index = 0
+    for r in range(rows):
+        for c in range(key):
+            if index < len(message):
+                matrix[r][c] = message[index]
+                index += 1
+
+    cipher = ""
+    for c in range(key):
+        for r in range(rows):
+            cipher += matrix[r][c]
+
+    return cipher
+
+
+def decrypt(cipher, key):
+    rows = math.ceil(len(cipher) / key)
+    matrix = [['' for _ in range(key)] for _ in range(rows)]
+
+    index = 0
+    for c in range(key):
+        for r in range(rows):
+            if index < len(cipher):
+                matrix[r][c] = cipher[index]
+                index += 1
+
+    message = ""
+    for r in range(rows):
+        for c in range(key):
+            message += matrix[r][c]
+
+    return message.rstrip('X')
+
+
+while True:
+    print("\n========== Columnar Transposition Cipher ==========")
+    print("1. Encrypt")
+    print("2. Decrypt")
+    print("3. Exit")
+
+    choice = input("Enter your choice: ")
+
+    if choice == "1":
+        msg = input("Enter the message: ")
+        key = int(input("Enter the key: "))
+        print("Encrypted Message:", encrypt(msg, key))
+
+    elif choice == "2":
+        cipher = input("Enter the cipher text: ")
+        key = int(input("Enter the key: "))
+        print("Decrypted Message:", decrypt(cipher, key))
+
+    elif choice == "3":
+        print("Program Exited Successfully.")
+        break
+
+    else:
+        print("Invalid Choice!")
