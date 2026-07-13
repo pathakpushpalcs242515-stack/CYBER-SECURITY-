@@ -1,0 +1,43 @@
+1.A Classical Substitution Technique (Caesar Cipher)
+CLI Version
+
+# caesar_cli.py
+
+def encrypt(text, key):
+    cipher = ""
+
+    for ch in text:
+        if ch.isalpha():
+            if ch.isupper():
+                cipher += chr((ord(ch) - ord('A') + key) % 26 + ord('A'))
+            else:
+                cipher += chr((ord(ch) - ord('a') + key) % 26 + ord('a'))
+        else:
+            cipher += ch
+
+    return cipher
+
+
+def decrypt(text, key):
+    return encrypt(text, -key)
+
+
+print("===== Caesar Cipher =====")
+print("1. Encrypt")
+print("2. Decrypt")
+
+option = input("Enter your choice (1/2): ")
+
+text = input("Enter the text: ")
+key = int(input("Enter the key: "))
+
+if option == "1":
+    result = encrypt(text, key)
+    print("\nEncrypted Text:", result)
+
+elif option == "2":
+    result = decrypt(text, key)
+    print("\nDecrypted Text:", result)
+
+else:
+    print("\nInvalid option!")
